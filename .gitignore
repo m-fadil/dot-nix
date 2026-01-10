@@ -1,0 +1,22 @@
+# Hardware configuration (contains disk UUIDs, regenerate per machine)
+hosts/*/hardware-configuration.nix
+
+# Build results
+result
+result-*
+
+# Secrets (jika menggunakan sops/agenix)
+secrets/
+*.age
+*.secret
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
