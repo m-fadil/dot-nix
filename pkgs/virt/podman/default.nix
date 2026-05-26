@@ -6,8 +6,8 @@
 
     podman = {
       enable = true;
-      dockerCompat = true;
-      dockerSocket.enable = true;
+      dockerCompat = false;
+      dockerSocket.enable = false;
 
       defaultNetwork.settings = {
         dns_enabled = true;
