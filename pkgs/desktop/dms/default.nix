@@ -1,4 +1,4 @@
-{ lib, osConfig, inputs, pkgs, ... }:
+{ lib, osConfig, inputs, pkgs, pkgsUnstable, ... }:
 
 let
   hasDmsInputs = inputs ? dms && inputs ? dms-plugin-registry;
@@ -13,6 +13,8 @@ else
     ];
 
     config = lib.mkIf (osConfig.my.desktop == "hyprland") {
+      programs.quickshell.package = lib.mkForce pkgsUnstable.quickshell;
+
       programs.dank-material-shell = {
         enable = true;
         settings = import ./settings.nix;

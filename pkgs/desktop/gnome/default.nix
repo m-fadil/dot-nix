@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgsUnstable, ... }:
 
 {
   config = lib.mkIf (config.my.desktop == "gnome") {
@@ -8,14 +8,13 @@
 
     services.displayManager.gdm = {
       enable = true;
-      wayland.enable = true;
     };
 
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
-      extraPackages = with pkgs; [ intel-media-driver ];
-      extraPackages32 = with pkgs.pkgsi686Linux; [ intel-media-driver ];
+      extraPackages = with pkgsUnstable; [ intel-media-driver ];
+      extraPackages32 = with pkgsUnstable.pkgsi686Linux; [ intel-media-driver ];
     };
 
     security.rtkit.enable = true;
@@ -29,7 +28,6 @@
 
     xdg.portal = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
     };
   };
 }

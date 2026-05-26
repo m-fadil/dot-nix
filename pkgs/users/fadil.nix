@@ -16,6 +16,7 @@
 
     # GUI Apps (Categorized)
     ../apps/browsers/google-chrome
+    ../apps/browsers/brave
     ../apps/communication/telegram-desktop
     ../apps/communication/vesktop
     ../apps/media/vlc
@@ -65,7 +66,6 @@
 
     # Virtualisation
     ../virt/podman-desktop
-    ../virt/remote
 
     # Networking
     ../apps/networking/openvpn

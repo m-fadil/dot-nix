@@ -1,10 +1,10 @@
-{ lib, osConfig, pkgs, ... }:
+{ lib, osConfig, pkgsUnstable, ... }:
 
 {
   config = lib.mkIf (osConfig.my.desktop == "gnome") {
     home.pointerCursor = {
       name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
+      package = pkgsUnstable.adwaita-icon-theme;
       size = 24;
       gtk.enable = true;
       x11.enable = true;

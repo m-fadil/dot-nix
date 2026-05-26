@@ -7,16 +7,25 @@
 
   config = lib.mkIf (config.my.desktop == "hyprland") ({
     # Enable Hyprland
-    programs.hyprland = {
-      enable = true;
-      package = pkgsUnstable.hyprland;
-      xwayland.enable = true;
+    programs = {
+      hyprland = {
+        enable = true;
+        package = pkgsUnstable.hyprland;
+        xwayland.enable = true;
+      };
+    } // lib.optionalAttrs (inputs ? silentSDDM) {
+      silentSDDM = {
+        enable = true;
+        theme = "silvia";
+      };
     };
 
     # Sddm
-    services.displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
+    services.displayManager = {
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+      };
     };
 
     # Seat management
@@ -35,7 +44,14 @@
       enable = true;
       wlr.enable = false;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+      config.common.default = [
+        "hyprland"
+        "gtk"
+      ];
     };
+
+    security.polkit.enable = true;
 
     # Sound (PipeWire)
     security.rtkit.enable = true;
@@ -75,11 +91,6 @@
       GDK_BACKEND = "wayland,x11";
       NIXOS_OZONE_WL = 1;
       LIBVA_DRIVER_NAME = "iHD";
-    };
-  } // lib.optionalAttrs (inputs ? silentSDDM) {
-    programs.silentSDDM = {
-      enable = true;
-      theme = "silvia";
     };
   });
 }

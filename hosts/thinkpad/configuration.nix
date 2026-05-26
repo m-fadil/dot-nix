@@ -24,7 +24,9 @@
 
     # Virtualisation
     ../../pkgs/virt/podman
-    
+    ../../pkgs/virt/docker
+    ../../pkgs/virt/waydroid
+
     # Global Package-specific modules (NixOS level)
     ../../pkgs/shell/zellij/nixos.nix
     ../../pkgs/dev/git/nixos.nix
@@ -33,7 +35,7 @@
   # Enable Zsh at system level
   programs.zsh.enable = true;
 
-  my.desktop = "plasma";
+  my.desktop = "hyprland";
 
   # Kernel linux zen
   boot.kernelPackages = pkgs.linuxPackages_zen;

@@ -10,6 +10,7 @@
       "networkmanager"  # network management
       "video"           # video devices
       "audio"           # audio devices
+      "docker"
     ];
     shell = pkgs.zsh;
     
@@ -18,6 +19,6 @@
     # Untuk sementara, password akan diminta saat first boot
   };
 
-  # Sudo tanpa password untuk wheel group
-  security.sudo.wheelNeedsPassword = false;
+  # Sudo dengan password untuk wheel group
+  security.sudo.wheelNeedsPassword = true;
 }
