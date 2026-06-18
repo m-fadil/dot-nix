@@ -13,19 +13,17 @@
         package = pkgsUnstable.hyprland;
         xwayland.enable = true;
       };
-    } // lib.optionalAttrs (inputs ? silentSDDM) {
+    } // lib.optionalAttrs (inputs ? silentSDDM && config.my.displayManager == "sddm") {
       silentSDDM = {
         enable = true;
         theme = "silvia";
       };
     };
 
-    # Sddm
-    services.displayManager = {
-      sddm = {
-        enable = true;
-        wayland.enable = true;
-      };
+    # Display manager
+    services.displayManager.sddm = {
+      enable = config.my.displayManager == "sddm";
+      wayland.enable = true;
     };
 
     # Seat management
@@ -43,7 +41,9 @@
     xdg.portal = {
       enable = true;
       wlr.enable = false;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+      ];
 
       config.common.default = [
         "hyprland"
