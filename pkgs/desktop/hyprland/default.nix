@@ -80,7 +80,7 @@
       grim
       slurp
       flameshot
-      xfce.thunar
+      thunar
       imv
     ];
 

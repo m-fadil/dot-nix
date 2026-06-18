@@ -30,9 +30,7 @@
   # Optional integrations useful for DMS features
   services.fprintd.enable = true;
 
-  # Backlight control
-  programs.light.enable = true;
-
+  # Backlight control via brightnessctl package
   # Hardware Sensors
   hardware.sensor.iio.enable = true;
   

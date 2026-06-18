@@ -15,7 +15,7 @@
       waybar
       wofi
       dunst
-      swww
+      awww
       wlogout
       networkmanagerapplet
     ];

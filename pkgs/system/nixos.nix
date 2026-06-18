@@ -66,6 +66,7 @@
   # System packages (hanya yang benar-benar esensial di level sistem)
   environment.systemPackages = with pkgs; [
     git
+    gparted
     # pinentry-curses
   ];
 
@@ -74,4 +75,10 @@
 
   # Enable nix-ld to run dynamically linked executables (required by Neovim's Mason, tree-sitter, etc.)
   programs.nix-ld.enable = true;
+
+  # Enable AppImage support
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
 }

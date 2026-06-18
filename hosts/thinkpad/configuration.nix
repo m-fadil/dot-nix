@@ -53,6 +53,6 @@
   # Hostname
   networking.hostName = "thinkpad";
 
-  # State version (jangan ubah setelah install pertama)
-  system.stateVersion = "24.11";
+  # State version
+  system.stateVersion = "26.05";
 }
