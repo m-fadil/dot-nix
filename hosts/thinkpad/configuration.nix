@@ -36,6 +36,7 @@
   programs.zsh.enable = true;
 
   my.desktop = "hyprland";
+  my.displayManager = "sddm";
 
   # Kernel linux zen
   boot.kernelPackages = pkgs.linuxPackages_zen;
