@@ -1,7 +1,7 @@
-{ pkgsUnstable, ... }:
+{ pkgs, ... }:
 
 {
-  home.packages = [
-    pkgsUnstable.vesktop
+  home.packages = with pkgs; [
+    vesktop
   ];
 }

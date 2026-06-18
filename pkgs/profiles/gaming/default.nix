@@ -4,11 +4,10 @@
   home.packages = with pkgs; [
     # Core gaming platforms
     steam
-    heroic                    # Epic/GOG/Amazon launcher with native UMU support
     protonup-qt               # Tool untuk download GE-Proton
 
     # Wine runtimes (installer-focused)
-    wineWowPackages.stable    # baseline, paling stabil
+    wineWow64Packages.stable  # baseline, paling stabil
     umu-launcher              # Unified Linux Launcher (bridge Proton GE ke non-steam)
 
     samba

@@ -6,20 +6,11 @@
 
   services.swayidle = {
     enable = true;
-    events = [
-      {
-        event = "before-sleep";
-        command = "loginctl lock-session";
-      }
-      {
-        event = "lock";
-        command = "loginctl lock-session";
-      }
-      {
-        event = "unlock";
-        command = "true";
-      }
-    ];
+    events = {
+      before-sleep = "loginctl lock-session";
+      lock = "loginctl lock-session";
+      unlock = "true";
+    };
     timeouts = [
       {
         timeout = 300;
