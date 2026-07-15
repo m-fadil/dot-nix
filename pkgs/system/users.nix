@@ -9,6 +9,7 @@
       "wheel"           # sudo access
       "networkmanager"  # network management
       "video"           # video devices
+      "render"          # GPU render nodes (/dev/dri/renderD*)
       "audio"           # audio devices
       "docker"
       "dialout"

@@ -59,6 +59,8 @@
       lla = "eza -la";
       ls = "eza";
       lt = "eza --tree";
+      vi = "nvim";
+      vim = "nvim";
     };
   };
 }

@@ -23,7 +23,6 @@
     ../../pkgs/hardware/bluetooth
 
     # Virtualisation
-    ../../pkgs/virt/podman
     ../../pkgs/virt/docker
     ../../pkgs/virt/waydroid
 

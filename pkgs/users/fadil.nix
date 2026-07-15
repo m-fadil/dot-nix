@@ -20,12 +20,14 @@
     ../apps/communication/telegram-desktop
     ../apps/communication/vesktop
     ../apps/media/vlc
+    ../apps/media/obs-studio
     ../apps/media/spicetify
     # bitwarden-desktop depends on electron-39.8.10, which is insecure/EOL in nixpkgs 26.05
     # ../apps/productivity/bitwarden
     ../apps/productivity/obsidian
     ../apps/productivity/libreoffice
-    
+    ../apps/productivity/okular
+
     # Editors
     ../editors/neovim
     ../editors/helix
@@ -62,9 +64,6 @@
     ../dev/sourcegit
     ../dev/bruno
     ../dev/dbeaver
-
-    # Virtualisation
-    ../virt/podman-desktop
 
     # Networking
     ../apps/networking/openvpn

@@ -13,6 +13,11 @@
         package = pkgsUnstable.hyprland;
         xwayland.enable = true;
       };
+
+      uwsm = {
+        enable = true;
+        package = pkgsUnstable.uwsm;
+      };
     } // lib.optionalAttrs (inputs ? silentSDDM && config.my.displayManager == "sddm") {
       silentSDDM = {
         enable = true;
@@ -21,9 +26,13 @@
     };
 
     # Display manager
-    services.displayManager.sddm = {
-      enable = config.my.displayManager == "sddm";
-      wayland.enable = true;
+    services.displayManager = {
+      defaultSession = "hyprland-uwsm";
+
+      sddm = {
+        enable = config.my.displayManager == "sddm";
+        wayland.enable = true;
+      };
     };
 
     # Seat management
@@ -33,16 +42,23 @@
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
-      extraPackages = with pkgs; [ intel-media-driver ];
-      extraPackages32 = with pkgs.pkgsi686Linux; [ intel-media-driver ];
+      extraPackages = with pkgs; [
+        intel-media-driver
+        intel-vaapi-driver
+        libvdpau-va-gl
+        vpl-gpu-rt
+      ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [
+        intel-media-driver
+      ];
     };
 
     # XDG Portal untuk Wayland
     xdg.portal = {
       enable = true;
       wlr.enable = false;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
       ];
 
       config.common.default = [
@@ -77,6 +93,7 @@
       kitty
       foot
       firefox
+      bun
       grim
       slurp
       flameshot
@@ -89,7 +106,7 @@
       MOZ_ENABLE_WAYLAND = "1";
       QT_QPA_PLATFORM = "wayland;xcb";
       GDK_BACKEND = "wayland,x11";
-      NIXOS_OZONE_WL = 1;
+      NIXOS_OZONE_WL = "1";
       LIBVA_DRIVER_NAME = "iHD";
     };
   });
