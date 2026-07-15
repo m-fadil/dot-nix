@@ -10,7 +10,13 @@
   # Firewall
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 20170 20171 ];
+    allowedTCPPorts = [
+      22
+      8080
+      20170
+      20171
+      9223
+    ];
     # allowedUDPPorts = [ ];
   };
 

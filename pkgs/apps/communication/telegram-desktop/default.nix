@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ pkgsUnstable, ... }:
 
 {
   home.packages = [
-    pkgs.telegram-desktop
+    pkgsUnstable.telegram-desktop
   ];
 }
