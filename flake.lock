@@ -1,25 +1,9 @@
 {
   "nodes": {
-    "dank-qml-common": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1784647395,
-        "narHash": "sha256-kcLSJC8XBzmWoSBc90Zn81qrNsqWMkwQ1m/zZixOw30=",
-        "owner": "AvengeMedia",
-        "repo": "dank-qml-common",
-        "rev": "1919595f0dde4f5bf5ac0baa1902ff6d070971d5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AvengeMedia",
-        "repo": "dank-qml-common",
-        "type": "github"
-      }
-    },
     "dgop": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs"
+          "nix-unstable"
         ]
       },
       "locked": {
@@ -38,23 +22,22 @@
     },
     "dms": {
       "inputs": {
-        "dank-qml-common": "dank-qml-common",
         "flake-compat": "flake-compat",
         "nixpkgs": [
           "nix-unstable"
         ]
       },
       "locked": {
-        "lastModified": 1784906904,
-        "narHash": "sha256-iaX8z9CufjGum/nmrRQ0FD4LtR3Abwz9/xS2aj+Fc+k=",
+        "lastModified": 1785111455,
+        "narHash": "sha256-aTNuC9NDBnYAeEtFsleeUwmGX3AZlKOutbl+LQRPkmQ=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "77a357109abd6bb0b471e1cd258a1fa4b7d26ac0",
+        "rev": "069ddab041c738236a8910e4c39b65d9628d3018",
         "type": "github"
       },
       "original": {
         "owner": "AvengeMedia",
-        "ref": "master",
+        "ref": "v1.5.3",
         "repo": "DankMaterialShell",
         "type": "github"
       }
@@ -62,7 +45,7 @@
     "dms-plugin-registry": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs"
+          "nix-unstable"
         ]
       },
       "locked": {
@@ -148,19 +131,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1784356753,
-        "narHash": "sha256-zupdTm41be2fY8cexroEOGjopl3F2Gqs3gk7ieqaM3s=",
-        "rev": "61b7c44c4073f0b827768aff0049561b5110ea5a",
-        "type": "tarball",
-        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1036777.61b7c44c4073/nixexprs.tar.xz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
-      }
-    },
     "root": {
       "inputs": {
         "dgop": "dgop",
@@ -196,7 +166,9 @@
     },
     "spicetify-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
         "systems": "systems"
       },
       "locked": {
