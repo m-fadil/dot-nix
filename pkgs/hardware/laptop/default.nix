@@ -30,6 +30,23 @@
   # Optional integrations useful for DMS features
   services.fprintd.enable = true;
 
+  # Graphics/OpenGL — properti mesin (Intel CometLake), bukan properti DE.
+  # Sebelumnya diduplikasi di modul hyprland/plasma/gnome dengan isi yang
+  # sempat berbeda-beda; sekarang satu definisi untuk semua DE.
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      intel-vaapi-driver
+      libvdpau-va-gl
+      vpl-gpu-rt
+    ];
+    extraPackages32 = with pkgs.pkgsi686Linux; [
+      intel-media-driver
+    ];
+  };
+
   # Backlight control via brightnessctl package
   # Hardware Sensors
   hardware.sensor.iio.enable = true;

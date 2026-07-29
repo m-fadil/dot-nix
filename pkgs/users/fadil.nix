@@ -29,8 +29,7 @@
     ../apps/productivity/okular
 
     # Editors
-    ../editors/neovim
-    ../editors/helix
+    # neovim, helix, vscode datang dari ../profiles/development
     ../editors/vim
 
     # Shell & CLI
@@ -42,7 +41,6 @@
     ../shell/ripgrep
     ../shell/fd
     ../shell/zellij
-    ../shell/delta
     ../shell/nload
     ../shell/wget
     ../shell/curl
@@ -52,18 +50,10 @@
     ../shell/zip
     ../shell/p7zip
     ../shell/lsof
-    
-    # Dev
-    ../dev/git
-    ../dev/gh
-    ../dev/lazygit
-    ../dev/nodejs
-    ../dev/python3
-    ../dev/android-tools
-    ../dev/scrcpy
-    ../dev/sourcegit
-    ../dev/bruno
-    ../dev/dbeaver
+
+    # Dev tooling (git, gh, lazygit, delta, nodejs, python3, android-tools,
+    # scrcpy, sourcegit, bruno, dbeaver) dimiliki ../profiles/development —
+    # jangan didaftarkan ulang di sini.
 
     # Networking
     ../apps/networking/openvpn
