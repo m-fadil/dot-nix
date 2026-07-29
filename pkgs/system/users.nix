@@ -16,10 +16,19 @@
       "plugdev"
     ];
     shell = pkgs.zsh;
-    
-    # Set initial password (change after first login!)
-    # hashedPassword dapat dibuat dengan: mkpasswd -m sha-512
-    # Untuk sementara, password akan diminta saat first boot
+
+    # Password saat ini diset manual lewat `passwd`; hash-nya hidup di
+    # /etc/shadow dan TIDAK ada di repo ini. Tanpa baris di bawah, install
+    # baru akan membuat akun terkunci ("!" di /etc/shadow) — tidak ada
+    # prompt password saat first boot.
+    #
+    # initialHashedPassword hanya dipakai saat user belum ada di /etc/passwd.
+    # Di mesin yang sudah jalan baris ini diabaikan total, termasuk kalau
+    # hash-nya diganti. Gunakan `hashedPassword` (bukan initial-) hanya jika
+    # ingin repo yang menang atas `passwd` setiap rebuild.
+    #
+    # Generate: mkpasswd -m yescrypt
+    # initialHashedPassword = "$y$j9T$...";
   };
 
   users.groups.plugdev = { };
