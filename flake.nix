@@ -15,6 +15,7 @@
 
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     silentSDDM = {
@@ -22,19 +23,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Pinned ke tag rilis, bukan branch: master bergerak tiap hari dan sering breaking.
+    # Bump manual: nix flake lock --override-input dms github:AvengeMedia/DankMaterialShell/v1.5.3
     dms = {
-      url = "github:AvengeMedia/DankMaterialShell/master";
+      url = "github:AvengeMedia/DankMaterialShell/v1.5.3";
       inputs.nixpkgs.follows = "nix-unstable";
     };
 
+    # Ketiganya WAJIB follows nix-unstable seperti dms — plugin QML yang di-build
+    # terhadap quickshell versi lain akan crash saat runtime, bukan gagal saat build.
     dms-plugin-registry = {
       url = "github:AvengeMedia/dms-plugin-registry";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nix-unstable";
     };
 
     dgop = {
       url = "github:AvengeMedia/dgop";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nix-unstable";
     };
 
     zen-browser = {

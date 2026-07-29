@@ -22,15 +22,14 @@
     timeout = 3;
   };
 
-  # Essential services
-  services.openssh = {
-    enable = true;
-    settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
-      PubkeyAuthentication = "yes";
-    };
-  };
+  # sshd dimatikan: tidak ada authorizedKeys yang terdaftar dan password auth
+  # off, jadi daemon-nya tidak bisa menerima login siapa pun. Untuk mengaktifkan
+  # kembali (mis. akses lewat tailnet), butuh tiga hal sekaligus:
+  #   services.openssh = { enable = true; settings.PermitRootLogin = "no";
+  #                        settings.PasswordAuthentication = false; };
+  #   users.users.fadil.openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAA..." ];
+  #   networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 22 ];
+  services.openssh.enable = false;
 
   services.dbus.enable = true;
 

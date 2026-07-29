@@ -1,11 +1,9 @@
 { lib, config, inputs, pkgs, pkgsUnstable, ... }:
 
 {
-  imports = lib.optionals (inputs ? silentSDDM) [
-    inputs.silentSDDM.nixosModules.default
-  ];
+  imports = [ inputs.silentSDDM.nixosModules.default ];
 
-  config = lib.mkIf (config.my.desktop == "hyprland") ({
+  config = lib.mkIf (config.my.desktop == "hyprland") {
     # Enable Hyprland
     programs = {
       hyprland = {
@@ -18,9 +16,9 @@
         enable = true;
         package = pkgsUnstable.uwsm;
       };
-    } // lib.optionalAttrs (inputs ? silentSDDM && config.my.displayManager == "sddm") {
+
       silentSDDM = {
-        enable = true;
+        enable = config.my.displayManager == "sddm";
         theme = "silvia";
       };
     };
@@ -38,21 +36,6 @@
     # Seat management
     services.seatd.enable = true;
 
-    # Graphics/OpenGL
-    hardware.graphics = {
-      enable = true;
-      enable32Bit = true;
-      extraPackages = with pkgs; [
-        intel-media-driver
-        intel-vaapi-driver
-        libvdpau-va-gl
-        vpl-gpu-rt
-      ];
-      extraPackages32 = with pkgs.pkgsi686Linux; [
-        intel-media-driver
-      ];
-    };
-
     # XDG Portal untuk Wayland
     xdg.portal = {
       enable = true;
@@ -68,16 +51,6 @@
     };
 
     security.polkit.enable = true;
-
-    # Sound (PipeWire)
-    security.rtkit.enable = true;
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
-    };
 
     # Essential Wayland packages
     environment.systemPackages = with pkgs; [
@@ -109,5 +82,5 @@
       NIXOS_OZONE_WL = "1";
       LIBVA_DRIVER_NAME = "iHD";
     };
-  });
+  };
 }

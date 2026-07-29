@@ -7,18 +7,9 @@
     wifi.powersave = false;
   };
 
-  # Firewall
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [
-      22
-      8080
-      20170
-      20171
-      9223
-    ];
-    # allowedUDPPorts = [ ];
-  };
+  # Firewall: tidak ada port yang dibuka. Laptop ini tidak melayani apa pun
+  # dari jaringan. Outbound & koneksi Tailscale tetap jalan normal.
+  networking.firewall.enable = true;
 
   # services.netbird = {
   #   enable = true; # for netbird service & CLI

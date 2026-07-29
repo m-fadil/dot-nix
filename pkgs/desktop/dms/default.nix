@@ -1,42 +1,36 @@
 { lib, osConfig, inputs, pkgs, pkgsUnstable, ... }:
 
-let
-  hasDmsInputs = inputs ? dms && inputs ? dms-plugin-registry;
-in
-if !hasDmsInputs then
-  {}
-else
-  {
-    imports = [
-      inputs.dms.homeModules.dank-material-shell
-      inputs.dms-plugin-registry.homeModules.default
-    ];
+{
+  imports = [
+    inputs.dms.homeModules.dank-material-shell
+    inputs.dms-plugin-registry.homeModules.default
+  ];
 
-    config = lib.mkIf (osConfig.my.desktop == "hyprland") {
-      programs.quickshell.package = lib.mkForce pkgsUnstable.quickshell;
+  config = lib.mkIf (osConfig.my.desktop == "hyprland") {
+    programs.quickshell.package = lib.mkForce pkgsUnstable.quickshell;
 
-      programs.dank-material-shell = {
+    programs.dank-material-shell = {
+      enable = true;
+      settings = import ./settings.nix;
+      managePluginSettings = true;
+
+      systemd = {
         enable = true;
-        settings = import ./settings.nix;
-        managePluginSettings = true;
+        restartIfChanged = true;
+      };
 
-        systemd = {
-          enable = true;
-          restartIfChanged = true;
-        };
+      enableSystemMonitoring = true;
+      enableVPN = true;
+      enableDynamicTheming = true;
+      enableAudioWavelength = true;
+      enableCalendarEvents = true;
+      enableClipboardPaste = true;
 
-        enableSystemMonitoring = true;
-        enableVPN = true;
-        enableDynamicTheming = true;
-        enableAudioWavelength = true;
-        enableCalendarEvents = true;
-        enableClipboardPaste = true;
+      dgop.package = inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
-        plugins = {
-          dankBatteryAlerts.enable = true;
-        };
-      } // lib.optionalAttrs (inputs ? dgop) {
-        dgop.package = inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.default;
+      plugins = {
+        dankBatteryAlerts.enable = true;
       };
     };
-  }
+  };
+}

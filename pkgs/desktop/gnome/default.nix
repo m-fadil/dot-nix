@@ -1,4 +1,4 @@
-{ lib, config, pkgsUnstable, ... }:
+{ lib, config, ... }:
 
 {
   config = lib.mkIf (config.my.desktop == "gnome") {
@@ -8,22 +8,6 @@
 
     services.displayManager.gdm = {
       enable = true;
-    };
-
-    hardware.graphics = {
-      enable = true;
-      enable32Bit = true;
-      extraPackages = with pkgsUnstable; [ intel-media-driver ];
-      extraPackages32 = with pkgsUnstable.pkgsi686Linux; [ intel-media-driver ];
-    };
-
-    security.rtkit.enable = true;
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
     };
 
     xdg.portal = {
