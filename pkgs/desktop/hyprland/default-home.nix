@@ -12,12 +12,18 @@
 
     # Hyprland related packages
     home.packages = with pkgs; [
+      awww
+      networkmanagerapplet
+    ]
+    # Bar/launcher/notifikasi/logout hanya kalau tidak ada shell yang ambil alih.
+    # dunst bukan sekadar redundan: paketnya memasang D-Bus activation file untuk
+    # org.freedesktop.Notifications, jadi ia bisa ke-autostart dan berebut nama
+    # bus itu dengan notification daemon milik dms/noctalia.
+    ++ lib.optionals (osConfig.my.shell == "none") [
       waybar
       wofi
       dunst
-      awww
       wlogout
-      networkmanagerapplet
     ];
 
     # Use general cursor

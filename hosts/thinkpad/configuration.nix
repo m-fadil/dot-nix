@@ -36,6 +36,7 @@
 
   my.desktop = "hyprland";
   my.displayManager = "sddm";
+  my.shell = "dms"; # ganti ke "noctalia" untuk tukar shell
 
   # Kernel linux zen
   boot.kernelPackages = pkgs.linuxPackages_zen;

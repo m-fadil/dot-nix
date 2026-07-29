@@ -42,6 +42,17 @@
       inputs.nixpkgs.follows = "nix-unstable";
     };
 
+    # Noctalia v5 native (meson/C++), bukan lagi berbasis quickshell seperti v4 —
+    # jadi tidak bentrok dengan programs.quickshell.package milik dms.
+    # Masih beta dan bergerak cepat, jadi dipin ke tag seperti dms.
+    # Bump: nix flake lock --override-input noctalia github:noctalia-dev/noctalia/<tag>
+    # follows nix-unstable karena upstream sendiri build terhadap nixos-unstable
+    # (sdbus-cpp_2, tomlplusplus, md4c, stb belum tentu cocok di 26.05).
+    noctalia = {
+      url = "github:noctalia-dev/noctalia/v5.0.0-beta.6";
+      inputs.nixpkgs.follows = "nix-unstable";
+    };
+
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
