@@ -6,7 +6,7 @@
     inputs.dms-plugin-registry.homeModules.default
   ];
 
-  config = lib.mkIf (osConfig.my.desktop == "hyprland") {
+  config = lib.mkIf (osConfig.my.shell == "dms") {
     programs.quickshell.package = lib.mkForce pkgsUnstable.quickshell;
 
     programs.dank-material-shell = {

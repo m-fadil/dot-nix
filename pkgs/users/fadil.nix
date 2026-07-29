@@ -9,7 +9,9 @@
     ../hardware/laptop/default-home.nix
     ../desktop/gnome/default-home.nix
     ../desktop/hyprland/default-home.nix
+    # Shell Wayland — keduanya diimpor, yang aktif dipilih lewat my.shell
     ../desktop/dms/default.nix
+    ../desktop/noctalia/default.nix
     ../desktop/plasma/default-home.nix
     ../profiles/development
     ../profiles/gaming
