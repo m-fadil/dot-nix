@@ -20,32 +20,33 @@
     # allowedUDPPorts = [ ];
   };
 
-  services.netbird = {
-    enable = true; # for netbird service & CLI
-    clients.default.config.DisableDNS = true;
-  };
+  # services.netbird = {
+  #   enable = true; # for netbird service & CLI
+  #   clients.default.config.DisableDNS = true;
+  # };
+
+  services.tailscale.enable = true;
 
   # DNS Mask
-  services.dnsmasq = {
-    enable = true;
-    resolveLocalQueries = true;
-    settings = {
-      # Listen only on localhost so it can coexist with NetBird's DNS
-      # listener on the VPN interface.
-      listen-address = [ "127.0.0.1" ];
-      bind-interfaces = true;
+  # services.dnsmasq = {
+  #   enable = true;
+  #   resolveLocalQueries = true;
+  #   settings = {
+  #     # Listen only on localhost so it can coexist with NetBird's DNS
+  #     # listener on the VPN interface.
+  #     listen-address = [ "127.0.0.1" ];
+  #     bind-interfaces = true;
 
-      address = [ "/.internal/127.0.0.1" ];
+  #     address = [ "/.internal/127.0.0.1" ];
 
-      server = [
-        "1.1.1.1"
-        "8.8.8.8"
-      ];
-    };
-  };
+  #     server = [
+  #       "1.1.1.1"
+  #       "8.8.8.8"
+  #     ];
+  #   };
+  # };
 
   environment.systemPackages = with pkgs; [
-    netbird-ui # for netbird GUI
     caddy
     nssTools
   ];

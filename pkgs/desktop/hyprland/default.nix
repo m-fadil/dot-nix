@@ -10,7 +10,7 @@
     programs = {
       hyprland = {
         enable = true;
-        package = pkgsUnstable.hyprland;
+        package = pkgs.hyprland;
         xwayland.enable = true;
       };
 
