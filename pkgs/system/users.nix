@@ -28,7 +28,7 @@
     # ingin repo yang menang atas `passwd` setiap rebuild.
     #
     # Generate: mkpasswd -m yescrypt
-    # initialHashedPassword = "$y$j9T$...";
+    initialHashedPassword = "$y$j9T$kPNvFuprTgM/k4drMyZ2B1$L8zEJkLTeHLZ1QLsFjBRNMiVtTBOJ6LCxzO6IPGaXE8";
   };
 
   users.groups.plugdev = { };
