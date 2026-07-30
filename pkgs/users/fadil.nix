@@ -65,7 +65,7 @@
     settings = {
       user = {
         name = "Fadil";
-        email = "fadlz.dev@gmail.com";
+        email = "fadhilaikhsani@yahoo.com";
       };
     };
   };
