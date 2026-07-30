@@ -49,6 +49,7 @@ menambah/menghapus baris import.
 | `my.desktop` | `hyprland` \| `plasma` \| `gnome` | `plasma` | Compositor/DE |
 | `my.displayManager` | `sddm` \| `gdm` \| `none` | `sddm` | Login screen |
 | `my.shell` | `dms` \| `noctalia` \| `none` | `none` | Bar, launcher, notifikasi |
+| `my.gaming` | `true` \| `false` | `false` | Steam, gamemode, tooling Wine/Proton |
 
 `my.shell` adalah sumbu **terpisah** dari `my.desktop`, karena hyprland hanya
 compositor dan tidak bawa bar/launcher/notifikasi sendiri. Plasma dan GNOME
@@ -62,7 +63,13 @@ Contoh isi `hosts/thinkpad/configuration.nix`:
 my.desktop = "hyprland";
 my.displayManager = "sddm";
 my.shell = "dms";        # ganti ke "noctalia" untuk tukar shell
+my.gaming = false;
 ```
+
+`my.gaming` menyalakan dua modul sekaligus — `pkgs/profiles/gaming/default.nix`
+(paket & config user) dan `pkgs/profiles/gaming/nixos.nix` (`programs.steam` +
+`programs.gamemode`) — karena Steam di level sistem tanpa tooling Wine/Proton di
+level user, atau sebaliknya, cuma setengah jalan.
 
 Yang dipusatkan (jangan diduplikasi di modul DE): display manager dan audio
 stack di `pkgs/system/desktop.nix`, graphics/OpenGL di
