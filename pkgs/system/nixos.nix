@@ -48,6 +48,11 @@
       noto-fonts-color-emoji
       noto-fonts-cjk-sans
       nerd-fonts.jetbrains-mono
+
+      # Untuk Wine/Proton — banyak installer Windows mengasumsikan metrik
+      # Arial/Times. Harus di sini, bukan home.packages, supaya fontconfig
+      # sistem melihatnya.
+      liberation_ttf
     ];
 
     fontconfig = {

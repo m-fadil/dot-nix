@@ -1,9 +1,10 @@
-{ pkgs, pkgsUnstable, ... }:
+{ pkgs, ... }:
 
 {
+  # steam, protontricks, dan gamemode ada di ./nixos.nix, bukan di sini —
+  # ketiganya butuh modul NixOS-nya. Alasannya ada di file itu.
   home.packages = with pkgs; [
     # Core gaming platforms
-    steam
     protonup-qt               # Tool untuk download GE-Proton
 
     # Wine runtimes (installer-focused)
@@ -12,10 +13,8 @@
 
     samba
     winetricks                # dependency installer (vcrun, dx, dotnet)
-    protontricks              # Steam Proton prefix helper
 
     # Performance & diagnostics
-    gamemode
     mangohud
     goverlay
 
@@ -33,11 +32,9 @@
     # Input & controllers
     antimicrox
 
-    # Fonts & rendering (WAJIB untuk Wine/Proton GUI)
-    freetype
-    fontconfig
-    dejavu_fonts
-    liberation_ttf
+    # Font Wine/Proton tempatnya di fonts.packages (../../system/nixos.nix)
+    # supaya terdaftar di fontconfig sistem. freetype/fontconfig di
+    # home.packages tidak berpengaruh apa-apa untuk rendering Wine.
   ];
 
   # ==============================
@@ -62,19 +59,16 @@
     };
   };
 
-  # ==============================
-  # Gaming-related environment vars
-  # ==============================
-  home.sessionVariables = {
-    # Enable MangoHud globally (override per-game if needed)
-    MANGOHUD = "1";
-
-    # Auto-enable GameMode when supported
-    GAMEMODE_AUTO = "1";
-
-    # Wayland-first behavior
-    SDL_VIDEODRIVER = "wayland";
-    QT_QPA_PLATFORM = "wayland;xcb";
-    MOZ_ENABLE_WAYLAND = "1";
-  };
+  # Profil ini sengaja tidak menyetel home.sessionVariables. Yang menggoda untuk
+  # ditambahkan tapi jangan:
+  #
+  #   MANGOHUD=1       masuk ke SETIAP aplikasi Vulkan/GL, bukan cuma game.
+  #                    Pakai `mangohud <cmd>` atau launch option Steam per game.
+  #   GAMEMODE_AUTO=1  tidak ada yang membacanya; gamemode aktif per-proses
+  #                    lewat `gamemoderun`.
+  #   SDL_VIDEODRIVER  memaksa wayland global merusak banyak game SDL2 di Proton.
+  #
+  # QT_QPA_PLATFORM & MOZ_ENABLE_WAYLAND sudah diset sistem-wide di
+  # ../../desktop/hyprland/default.nix; versi home.sessionVariables akan
+  # menimpanya dan bocor ke sesi plasma/gnome juga.
 }
