@@ -1,0 +1,54 @@
+name: flake
+
+# Dua tugas: pastikan flake.lock lengkap, lalu pastikan config-nya masih bisa
+# dieval. Yang kedua yang sebenarnya berharga — repo ini sering diedit dari
+# mesin tanpa `nix`, jadi kesalahan eval baru ketahuan saat rebuild di laptop.
+on:
+  push:
+  workflow_dispatch:
+
+# Butuh write untuk push flake.lock yang diperbarui kembali ke branch.
+permissions:
+  contents: write
+
+concurrency:
+  group: flake-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lock-and-eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      # Input yang ada di flake.nix tapi belum ada di lock akan ditambahkan
+      # di sini. Input yang sudah terpin TIDAK ikut naik versi — itu tugas
+      # `nix flake update`, dan sengaja tetap manual.
+      - name: nix flake lock
+        run: nix flake lock
+
+      - name: commit lock kalau berubah
+        if: startsWith(github.ref, 'refs/heads/')
+        run: |
+          if git diff --quiet flake.lock; then
+            echo "flake.lock sudah lengkap"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add flake.lock
+          # [skip ci] wajib: tanpa ini push balik memicu workflow ini lagi.
+          git commit -m "chore: nix flake lock [skip ci]"
+          git push origin HEAD:${GITHUB_REF#refs/heads/}
+
+      # Eval saja, bukan build — cukup untuk menangkap opsi yang salah nama,
+      # assertion yang gagal, dan input yang hilang, tanpa mengompilasi apa pun.
+      - name: eval thinkpad
+        run: |
+          nix eval --raw \
+            .#nixosConfigurations.thinkpad.config.system.build.toplevel.drvPath
