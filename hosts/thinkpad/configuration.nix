@@ -24,6 +24,7 @@
 
     # Virtualisation
     ../../pkgs/virt/docker
+    ../../pkgs/virt/qemu
     ../../pkgs/virt/waydroid
 
     # Global Package-specific modules (NixOS level)

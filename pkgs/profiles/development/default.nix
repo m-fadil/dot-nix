@@ -19,8 +19,7 @@
     ../../editors/helix
     ../../editors/neovim
     ../../editors/vscode
-    
+
     # Virt tools
-    ../../virt/distrobox
   ];
 }

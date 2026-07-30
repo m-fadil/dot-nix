@@ -12,6 +12,7 @@
       "render"          # GPU render nodes (/dev/dri/renderD*)
       "audio"           # audio devices
       "docker"
+      "libvirtd"       # kelola VM qemu/kvm tanpa root
       "dialout"
       "plugdev"
     ];
