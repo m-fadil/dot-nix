@@ -22,6 +22,17 @@
       default = "none";
       description = "Wayland shell (bar, launcher, notifications) di atas compositor.";
     };
+
+    # Satu sumbu untuk dua modul: paket & config user di
+    # ../profiles/gaming/default.nix, dan programs.steam + programs.gamemode di
+    # ../profiles/gaming/nixos.nix. Keduanya harus hidup-mati bersama — Steam
+    # yang aktif di level sistem tanpa tooling Wine/Proton di level user (atau
+    # sebaliknya) cuma setengah jalan.
+    gaming = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Gaming stack: Steam, gamemode, dan tooling Wine/Proton.";
+    };
   };
 
   config = {
