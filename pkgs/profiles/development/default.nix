@@ -21,6 +21,6 @@
     ../../editors/vscode
     
     # Virt tools
-    ../../virt/podman-desktop
+    ../../virt/distrobox
   ];
 }
