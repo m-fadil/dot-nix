@@ -69,7 +69,8 @@
       bun
       grim
       slurp
-      flameshot
+      satty
+      jq
       thunar
       imv
     ];
