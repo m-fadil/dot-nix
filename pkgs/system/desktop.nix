@@ -34,6 +34,19 @@
       }
     ];
 
+    # `my.displayManager` adalah satu-satunya tempat yang menentukan DM. Modul
+    # DE tidak boleh menyalakan sddm/gdm sendiri: dua DM aktif sekaligus
+    # bentrok, dan kombinasi yang tidak ada cabangnya menghasilkan sistem tanpa
+    # login screen tanpa peringatan apa pun.
+    services.displayManager = {
+      sddm = {
+        enable = config.my.displayManager == "sddm";
+        wayland.enable = true;
+      };
+
+      gdm.enable = config.my.displayManager == "gdm";
+    };
+
     # Audio stack — sama persis untuk hyprland/plasma/gnome, jadi didefinisikan
     # sekali di sini alih-alih diduplikasi di tiap modul DE.
     security.rtkit.enable = true;

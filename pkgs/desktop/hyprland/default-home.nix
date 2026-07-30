@@ -1,13 +1,48 @@
-{ lib, osConfig, inputs, pkgs, ... }:
+{ lib, osConfig, pkgs, ... }:
 
+let
+  # Satu definisi locker untuk dipakai event lock maupun before-sleep.
+  #
+  # swaylock, bukan hyprlock: PAM-nya sudah disiapkan wayland-session.nix
+  # upstream dan ia jalan tanpa file config. Mengganti ke hyprlock berarti
+  # menambah security.pam.services.hyprlock DAN menulis input-field di
+  # config-nya — hyprlock tanpa input-field menghasilkan layar terkunci yang
+  # tidak bisa dibuka.
+  #
+  # Path store langsung, bukan lib.getExe: swaylock belum tentu punya
+  # meta.mainProgram dan getExe throw kalau tidak ada.
+  lockCmd = "${pkgs.swaylock}/bin/swaylock -f -c 1e1e2e";
+in
 {
   config = lib.mkIf (osConfig.my.desktop == "hyprland") {
-    systemd.user.targets.hyprland-session = {
-      Unit = {
-        Description = "Hyprland Session Target";
-        Requires = [ "graphical-session.target" ];
-        After = [ "graphical-session.target" ];
+    # Agent polkit — pasangan wajib security.polkit, yang hanya menjalankan
+    # daemon-nya. Tanpa agent tidak ada dialog autentikasi yang muncul dan
+    # pkexec (mis. gparted) gagal tanpa pesan. Plasma & GNOME bawa agent
+    # sendiri, DMS dan Noctalia tidak.
+    services.hyprpolkitagent.enable = true;
+
+    # Idle & lock khusus sesi hyprland — plasma dan gnome punya idle daemon
+    # sendiri, jadi keduanya harus tidak saling menimpa.
+    #
+    # Rantainya: timeout 300s -> `loginctl lock-session` -> logind mengirim
+    # signal Lock -> event `lock` di bawah -> swaylock. Artinya apa pun yang
+    # memanggil lock-session (tombol lock di shell, lid close) melewati jalur
+    # yang sama. Event `lock` harus berisi locker-nya, bukan lock-session lagi.
+    services.swayidle = {
+      enable = true;
+
+      events = {
+        # Langsung lockCmd, bukan lewat loginctl: swayidle memblokir sampai
+        # perintah before-sleep selesai, jadi lock dijamin sudah terpasang
+        # sebelum sistem tidur.
+        before-sleep = lockCmd;
+        lock = lockCmd;
       };
+
+      timeouts = [
+        { timeout = 300; command = "loginctl lock-session"; }
+        { timeout = 600; command = "systemctl suspend"; }
+      ];
     };
 
     # Hyprland related packages
@@ -34,7 +69,5 @@
       gtk.enable = true;
       x11.enable = true;
     };
-
-    home.sessionVariables = {};
   };
 }

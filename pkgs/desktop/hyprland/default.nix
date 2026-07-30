@@ -1,4 +1,4 @@
-{ lib, config, inputs, pkgs, pkgsUnstable, ... }:
+{ lib, config, inputs, pkgs, ... }:
 
 {
   imports = [ inputs.silentSDDM.nixosModules.default ];
@@ -10,11 +10,12 @@
         enable = true;
         package = pkgs.hyprland;
         xwayland.enable = true;
-      };
 
-      uwsm = {
-        enable = true;
-        package = pkgsUnstable.uwsm;
+        # uwsm mengikat Hyprland ke graphical-session-pre/graphical-session/
+        # xdg-desktop-autostart.target. Jangan setel `programs.uwsm.package`
+        # untuk menukar versinya — sesi hyprland-uwsm datang dari paket
+        # pkgs.hyprland dan path uwsm di dalamnya sudah dibakar ke Exec=.
+        withUWSM = true;
       };
 
       silentSDDM = {
@@ -23,34 +24,17 @@
       };
     };
 
-    # Display manager
-    services.displayManager = {
-      defaultSession = "hyprland-uwsm";
+    # Nama sesi valid berasal dari providedSessions paket hyprland: "hyprland"
+    # dan "hyprland-uwsm". sddm/gdm sendiri diatur di ../../system/desktop.nix.
+    services.displayManager.defaultSession = "hyprland-uwsm";
 
-      sddm = {
-        enable = config.my.displayManager == "sddm";
-        wayland.enable = true;
-      };
-    };
-
-    # Seat management
-    services.seatd.enable = true;
-
-    # XDG Portal untuk Wayland
-    xdg.portal = {
-      enable = true;
-      wlr.enable = false;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-      ];
-
-      config.common.default = [
-        "hyprland"
-        "gtk"
-      ];
-    };
-
-    security.polkit.enable = true;
+    # Urutan preferensi backend portal. Sisanya sudah diurus programs.hyprland
+    # lewat wayland-session.nix: xdg.portal.enable, extraPortals (termasuk
+    # portal-gtk), configPackages, wlr.enable, dan security.polkit.enable.
+    xdg.portal.config.common.default = [
+      "hyprland"
+      "gtk"
+    ];
 
     # Essential Wayland packages
     environment.systemPackages = with pkgs; [

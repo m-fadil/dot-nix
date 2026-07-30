@@ -30,9 +30,8 @@
   # Optional integrations useful for DMS features
   services.fprintd.enable = true;
 
-  # Graphics/OpenGL — properti mesin (Intel CometLake), bukan properti DE.
-  # Sebelumnya diduplikasi di modul hyprland/plasma/gnome dengan isi yang
-  # sempat berbeda-beda; sekarang satu definisi untuk semua DE.
+  # Graphics/OpenGL — properti mesin (Intel CometLake), bukan properti DE, jadi
+  # tempatnya di sini dan bukan diduplikasi di modul hyprland/plasma/gnome.
   hardware.graphics = {
     enable = true;
     enable32Bit = true;

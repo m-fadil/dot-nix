@@ -1,22 +1,10 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, ... }:
 
 {
   config = lib.mkIf (config.my.desktop == "plasma") {
-    # Enable KDE Plasma
+    # Satu baris sudah cukup: modul plasma6 mengurus sendiri xdg.portal
+    # (enable, kwallet + portal-kde + portal-gtk, configPackages) dan session
+    # package-nya. Display manager diatur di ../../system/desktop.nix.
     services.desktopManager.plasma6.enable = true;
-
-    # Display manager
-    services.displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-    };
-
-    # XDG portal
-    xdg.portal = {
-      enable = true;
-      extraPortals = [
-        pkgs.kdePackages.xdg-desktop-portal-kde
-      ];
-    };
   };
 }

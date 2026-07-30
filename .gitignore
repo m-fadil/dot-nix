@@ -1,5 +1,7 @@
-# Hardware configuration (contains disk UUIDs, regenerate per machine)
-hosts/*/hardware-configuration.nix
+# hosts/*/hardware-configuration.nix wajib ter-track git: dengan flake, file
+# yang tidak ter-track tidak dikopi ke store dan `nixos-rebuild --flake` gagal
+# dengan error path tidak ada. Isinya UUID disk, bukan rahasia.
+# Regenerate per mesin: nixos-generate-config --show-hardware-config
 
 # Build results
 result

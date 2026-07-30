@@ -29,6 +29,7 @@
     # Global Package-specific modules (NixOS level)
     ../../pkgs/shell/zellij/nixos.nix
     ../../pkgs/dev/git/nixos.nix
+    ../../pkgs/profiles/gaming/nixos.nix
   ];
 
   # Enable Zsh at system level
