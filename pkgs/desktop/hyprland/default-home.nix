@@ -28,7 +28,18 @@ in
     # signal Lock -> event `lock` di bawah -> swaylock. Artinya apa pun yang
     # memanggil lock-session (tombol lock di shell, lid close) melewati jalur
     # yang sama. Event `lock` harus berisi locker-nya, bukan lock-session lagi.
-    services.swayidle = {
+    #
+    # Dibatasi ke shell "none": dms dan noctalia membawa idle manager dan lock
+    # screen sendiri, dan keduanya ikut signal Lock dari logind. Kalau jalan
+    # bersamaan:
+    #   - ext-session-lock-v1 hanya menerima satu klien; yang kedua menerima
+    #     `finished` lalu exit ("Failed to lock session" di log swayidle).
+    #   - timeout 600 di bawah men-suspend padahal dms mematikan auto-suspend
+    #     (acSuspendTimeout = 0), dan jatuh bersamaan dengan DPMS off dms yang
+    #     juga di 600.
+    # Timeout untuk shell dms: ../dms/settings.nix, kunci {ac,battery}
+    # MonitorTimeout / LockTimeout / SuspendTimeout.
+    services.swayidle = lib.mkIf (osConfig.my.shell == "none") {
       enable = true;
 
       events = {
